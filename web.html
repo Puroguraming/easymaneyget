@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>フィッシング詐欺</title>
+
+    <style>
+        body {
+            background-color: black;
+            font-family: "MSPゴシック";
+            color: white;
+            text-align: center;
+        }
+
+        .firstsentence h1 {
+            color: red;
+            font-size: 60px;
+            letter-spacing: 15px;
+        }
+
+        .firstsentence p {
+            font-size: 16px;
+            line-height: 50px;
+            letter-spacing: 5px;
+        }
+
+        #s1 {
+            font-size: 28px;
+            color: yellow;
+            border-bottom: solid 1px yellow;
+        }
+
+        #s2 {
+            font-size: 20px;
+            border-bottom: solid 1px red;
+            color: red;
+        }
+
+        h3 {
+            font-size: 22px;
+        }
+
+        table {
+            margin: auto;
+        }
+
+        .progress {
+            background-color: yellow;
+            width: 60%;
+            margin: 20px auto;
+            color: black;
+        }
+
+        .progress p {
+            font-size: 20px;
+        }
+
+        .progress-container {
+            width: 50%;
+            height: 25px;
+            background-color: #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            margin: 20px auto; /* 他要素との間に余白を追加 */
+        }
+
+        .progress-bar {
+            width: 50%;
+            height: 100%;
+            background-color: #76c7c0;
+            border-radius: 10px;
+            position: absolute;
+            left: -20%;
+            animation: slide 1.5s linear infinite;
+        }
+
+        @keyframes slide {
+            0%{
+                left: -20%;
+            }
+            35%{
+                left: 100%;
+            }
+            100%{
+                left: 100%;
+            }
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <section class="firstsentence">
+
+        <h1>ご入会ありがとうございました</h1>
+        <p>
+            この度は、是礪覇鷺楕豫馬鹿棚・阿無破教会にご入会して頂きありがとうございます。<br>
+            下記の時間内にお近くの銀行で<span id="s1">入会金3000万</span>を振り込んでください。<br>
+            もし、振り込まれなかった場合は、それ相応の<span id="s2">法的処置</span>をとらせていただきます。
+        </p>
+
+        <div class="progress">
+            <p><b>残り時間<span id="countdown">360000</span>秒</b></p>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+
+    </section> 
+
+    <section class="manysentence">
+        <div class="BankInfo">
+            <h3><b>お振込先</b></h3>
+
+            <table border="1">
+                <tr>
+                    <td>銀行名（銀行コード）</td><td>総屋銀行（0227）</td>
+                </tr>
+                <tr>
+                    <td>支店名（支店コード）</td><td>脱非理亜同盟（1947）</td>
+                </tr>
+                <tr>
+                    <td>種別</td><td>普通預金</td>
+                </tr>
+                <tr>
+                    <td>口座番号</td><td>5353.2525</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="UserInfo">
+            <h3><b>お客様情報</b></h3>
+    
+            <table border="1">
+            <tr>
+                <td>アクセス日時</td><td id="nowdays"></td>
+            </tr>
+            <tr>
+                <td>端末情報</td><td id="device"></td>
+            </tr>
+            </table>
+    
+        </div>
+
+        <div class="info">
+            <h3><b>お問い合わせ</b></h3>
+
+            <table border="1">
+                <tr>
+                    <td>住所</td><td>愛知県豊田市相屋町御半多辺滞06-01</td>
+                </tr>
+                <tr>
+                    <td>メールアドレス</td><td>watashiwa.onoderadeha@naide.su</td>
+                </tr>
+                <tr>
+                    <td>電話番号</td><td>0125-352-017</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <script>
+        const now = new Date();
+        const nowdays = now.toLocaleString();
+        document.getElementById("nowdays").textContent = nowdays;
+
+        const userAgent = navigator.userAgent;
+        document.getElementById("device").textContent = userAgent;
+
+        function startCountdown(seconds) {
+    const countdownElement = document.getElementById("countdown");
+    const progressBar = document.querySelector(".progress-bar");
+    let remainingTime = seconds;
+
+    const beepSound = new Audio("警報が鳴る.mp3");
+
+    // カウントダウンを1秒ごとに更新
+    const interval = setInterval(() => {
+        // 残り時間を日、時、分、秒に変換
+        const days = Math.floor(remainingTime / (60 * 60 * 24)); // 日
+        const hours = Math.floor((remainingTime % (60 * 60 * 24)) / (60 * 60)); // 時
+        const minutes = Math.floor((remainingTime % (60 * 60)) / 60); // 分
+        const seconds = remainingTime % 60; // 秒
+
+        // 表示を更新
+        countdownElement.textContent = 
+            `${days}日 ${hours}時間 ${minutes}分 ${seconds}秒`;
+
+        // プログレスバーの幅を計算
+        const progressPercentage = ((seconds - remainingTime) / seconds) * 100;
+        progressBar.style.width = progressPercentage + "%";
+
+        if (remainingTime > 0) {
+            beepSound.play(); // ビープ音を再生
+        }
+
+        
+
+        // カウントダウンが0になったら停止
+        if (remainingTime <= 0) {
+            clearInterval(interval);
+            countdownElement.textContent = "時間切れ";
+            alert("振り込みが確認できませんでした！");
+        } else {
+            remainingTime--;
+        }
+    }, 1000); // 1秒ごとに実行
+}
+
+// カウントダウンをスタート（例: 3日分の秒数）
+startCountdown(3600 * 24 * 3); // 3日間
+
+    </script>
+
+</body>
+</html>
