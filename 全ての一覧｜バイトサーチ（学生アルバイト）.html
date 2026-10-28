@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>全ての一覧｜バイトサーチ（学生アルバイト）</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f6f4f5;--surf:#fff;--text:#333;--mute:#777;--line:#e6dfe2;--pri:#e8457c;--pri-t:#fff;--soft:#fdeef4;--new:#ff7a00}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#17131a;--surf:#221c26;--text:#eee;--mute:#a99fae;--line:#3a3040;--pri:#f0689a;--pri-t:#1a0f15;--soft:#33202b}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#17131a;--surf:#221c26;--text:#eee;--mute:#a99fae;--line:#3a3040;--pri:#f0689a;--pri-t:#1a0f15;--soft:#33202b}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;font-size:14px;line-height:1.7}
+a{color:inherit}
+.w{max-width:1000px;margin:0 auto;padding:0 12px}
+header{background:var(--surf);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;max-width:1000px;margin:0 auto;flex-wrap:wrap}
+.logo{font-weight:900;font-size:22px;color:var(--pri);cursor:pointer}
+.logo small{font-size:11px;color:var(--mute);font-weight:500;margin-left:8px}
+nav{display:flex;gap:4px;align-items:center;flex-wrap:wrap}
+nav button{background:none;border:0;font:inherit;font-size:13px;padding:6px 10px;cursor:pointer;color:var(--text);border-bottom:3px solid transparent}
+nav button.on{color:var(--pri);border-color:var(--pri);font-weight:700}
+nav .cnt{background:var(--pri);color:var(--pri-t);border-radius:10px;padding:0 7px;font-size:11px;margin-left:3px}
+.reg{background:var(--pri);color:var(--pri-t)!important;border-radius:4px;font-weight:700}
+.tag1{background:var(--pri);color:var(--pri-t);text-align:center;padding:8px 12px;font-weight:700;font-size:13px}
+.crumb{font-size:12px;color:var(--mute);padding:10px 0}
+h1{font-size:20px;margin:4px 0 12px;border-left:5px solid var(--pri);padding-left:10px}
+.panel{background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:16px}
+.panel h2{font-size:15px;margin:0 0 12px;text-align:center}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.fld label{display:block;font-size:12px;font-weight:700;color:var(--mute)}
+.pick,.fld input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:6px;background:var(--surf);color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.pick::after{content:"▼";float:right;font-size:10px;color:var(--pri);margin-top:5px}
+.pick.has{border-color:var(--pri);background:var(--soft);font-weight:700}
+.fld.full{grid-column:1/-1}
+.go{display:block;margin:14px auto 0;width:100%;max-width:360px;background:var(--pri);color:var(--pri-t);border:0;border-radius:30px;padding:13px;font:inherit;font-weight:900;font-size:16px;cursor:pointer}
+.res{display:flex;justify-content:space-between;margin:18px 0 8px;align-items:baseline;flex-wrap:wrap}
+.res b{font-size:18px;color:var(--pri)}
+.grp{background:var(--soft);border:1px solid var(--pri);border-radius:8px;padding:14px;margin-bottom:12px}
+.grp h3{margin:2px 0 6px;font-size:15px}
+.grp .co{font-size:12px;font-weight:700;color:var(--pri)}
+.grp p{margin:0 0 10px;font-size:13px}
+.btn{display:inline-block;border:1px solid var(--pri);background:var(--surf);color:var(--pri);border-radius:4px;padding:8px 16px;font:inherit;font-weight:700;cursor:pointer}
+.btn.fill{background:var(--pri);color:var(--pri-t)}
+.job{background:var(--surf);border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px}
+.job .co{font-size:12px;color:var(--mute)}
+.job h3{font-size:15px;margin:2px 0 10px;line-height:1.5}
+.new{background:var(--new);color:#fff;font-size:11px;font-weight:700;padding:1px 8px;border-radius:3px;margin-right:6px}
+.jb{display:grid;grid-template-columns:160px 1fr;gap:14px}
+.img{height:120px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:46px;background:linear-gradient(135deg,var(--soft),var(--line))}
+.no{font-size:11px;color:var(--mute);margin-top:4px}
+.desc{font-size:12.5px;color:var(--mute);margin:0 0 8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tb{display:grid;grid-template-columns:56px 1fr;border-top:1px solid var(--line);font-size:13px}
+.tb dt,.tb dd{margin:0;padding:5px 0;border-bottom:1px solid var(--line)}
+.tb dt{color:var(--pri);font-weight:700}
+.wage{font-weight:900;font-size:17px}
+.tags{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+.tags span{font-size:11px;background:var(--soft);color:var(--pri);padding:1px 8px;border-radius:10px}
+.act{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.act .btn{flex:0 1 160px;text-align:center}
+.pg{display:flex;gap:6px;justify-content:center;margin:20px 0}
+.pg button{min-width:36px;height:36px;border:1px solid var(--line);background:var(--surf);color:var(--text);border-radius:4px;cursor:pointer;font:inherit}
+.pg button.on{background:var(--pri);color:var(--pri-t);border-color:var(--pri);font-weight:700}
+.empty{text-align:center;padding:40px 0;color:var(--mute)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:20;padding:12px}
+.ov.show{display:flex}
+.sh{background:var(--surf);width:100%;max-width:640px;max-height:88%;display:flex;flex-direction:column;border-radius:10px;overflow:hidden}
+.sh .t{background:var(--pri);color:var(--pri-t);padding:12px 16px;font-weight:700;display:flex;justify-content:space-between}
+.sh .t button{background:none;border:0;color:inherit;font-size:20px;cursor:pointer}
+.sh .bd{padding:14px 16px;overflow:auto}
+.sh .ft{padding:12px;border-top:1px solid var(--line);text-align:center}
+.sh h4{margin:14px 0 6px;font-size:13px;color:var(--pri);border-bottom:1px solid var(--line)}
+.ck{display:inline-block;margin:0 8px 8px 0}
+.ck input{display:none}
+.ck span{display:inline-block;border:1px solid var(--line);border-radius:4px;padding:6px 12px;cursor:pointer}
+.ck input:checked+span{background:var(--pri);color:var(--pri-t);border-color:var(--pri);font-weight:700}
+footer{background:var(--surf);border-top:1px solid var(--line);margin-top:30px;padding:20px 12px;text-align:center;font-size:12px;color:var(--mute)}
+footer a{margin:0 8px;text-decoration:none}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:#333;color:#fff;padding:10px 18px;border-radius:24px;display:none;z-index:30}
+@media(max-width:600px){.jb{grid-template-columns:1fr}.img{height:90px}.grid{grid-template-columns:1fr}.logo small{display:none}}
+h1{border-left:0;padding-left:0;border-bottom:2px solid var(--pri);padding-bottom:6px;font-size:18px}
+.tag1{font-weight:500;font-size:12px;padding:6px 12px}
+.panel,.job,.grp,.sh{border-radius:2px}
+.panel{border-top:3px solid var(--pri)}
+.go{border-radius:3px;max-width:320px;font-size:15px}
+.btn,.pick,.fld input,.pg button,.ck span,.new,.reg{border-radius:2px}
+.tags span{border-radius:2px;background:transparent;border:1px solid var(--line);color:var(--mute)}
+.grp{background:var(--surf);border-color:var(--line);border-left:4px solid var(--pri)}
+.img{border-radius:0;height:110px;font-size:12px;font-weight:700;color:#fff;letter-spacing:.08em;background-image:none;text-align:center;padding:0 6px}
+.job h3{font-size:15px;font-weight:700}
+.pick::after{content:"\25BE";font-size:13px;margin-top:0}
+</style>
+</head>
+<body>
+<header><div class="hd"><div class="logo" id="home">バイトサーチ<small>学生アルバイト情報</small></div>
+<nav><button data-v="list" class="on">求人一覧</button><button data-v="keep">キープ中<span class="cnt" id="kc">0</span></button><button data-v="hist">最近見た</button><button class="reg" id="reg">ご利用登録 / ログイン</button></nav></div></header>
+<div class="tag1">学校公認!! 学生向け学校周辺の安全・安心アルバイト情報</div>
+<div class="w">
+<div class="crumb">バイトサーチ ＞ 全ての学生アルバイト</div>
+<h1>全ての学生アルバイト</h1>
+<div class="panel"><h2>条件選択から学生アルバイトを探す</h2>
+<div class="grid">
+<div class="fld"><label>エリア</label><button class="pick" data-k="pref">選択する</button></div>
+<div class="fld"><label>路線・駅</label><button class="pick" data-k="line">選択する</button></div>
+<div class="fld"><label>職種</label><button class="pick" data-k="cat">選択する</button></div>
+<div class="fld"><label>こだわり</label><button class="pick" data-k="tag">選択する</button></div>
+<div class="fld full"><label>ワード</label><input id="kw" placeholder="例：カフェ 渋谷 未経験"></div></div>
+<button class="go" id="go">この条件で検索する</button></div>
+<div class="res"><span id="rc"></span><span id="sub" style="color:var(--mute);font-size:12px"></span></div>
+<div id="list"></div><div class="pg" id="pg"></div>
+</div>
+<footer><a href="#">バイトサーチとは</a><a href="#">よくある質問</a><a href="#">労働基準法について</a><a href="#">プライバシーポリシー</a><div style="margin-top:8px">※ 掲載内容はすべてサンプル（架空）です。</div></footer>
+<div class="ov" id="ov"><div class="sh" id="sh"></div></div><div class="toast" id="toast"></div>
+<script>
+const C={"飲食・フード":"🍽️","コンビニ・スーパー":"🏪","販売・接客":"🛍️","軽作業・物流":"📦","事務・オフィスワーク":"💻","教育・塾講師":"📚","イベント・スタッフ":"🎤","ライター・クリエイティブ":"✍️","学童・保育補助":"🧸"};
+const REG={"北海道・東北":["北海道"],"関東":["東京都","神奈川県","埼玉県","千葉県"],"東海":["愛知県"],"関西":["大阪府","京都府","兵庫県"],"九州・沖縄":["福岡県"]};
+const TAGS=["未経験歓迎","髪色自由","短期","週1日〜OK","交通費支給","高時給","土日祝休み","送迎あり","日払い"];
+// [no,new,会社,タイトル,説明,給与種別,金額,職種,都道府県,市区,路線,駅,徒歩,タグ]
+const D=[
+[2064002,1,"学生ネットワーク東京","自宅で出来る！企業にインタビューして就活情報誌の記事を書こう","毎年人気のお仕事です。学生の皆さんから見た企業の魅力を発見して記事にしてください。特別なライターのスキルは不要です。","日給","2,800円 ～","ライター・クリエイティブ","東京都","新宿区","JR山手線","新宿",10,["未経験歓迎","髪色自由","短期"]],
+[2063979,1,"(株)ユーピーワイ","【未経験歓迎】AIを使った最新SNSマーケティングのお仕事","TikTok・Instagram運用、トレンドリサーチ、投稿企画、データ分析など。ショート動画の企画・撮影・編集も体験できます。","時給","1,500円 ～","ライター・クリエイティブ","東京都","新宿区","JR山手線","高田馬場",2,["未経験歓迎","高時給","週1日〜OK"]],
+[2063897,1,"ジェイアール名古屋百貨店","★短期★バレンタインで働こう！【接客・販売なし】レジ専任STAFF大募集♪","毎年大人気の期間限定イベント！裏方でレジ操作を担当します。接客・販売・電話対応はありません。","時給","1,450円","販売・接客","愛知県","名古屋市中村区","JR東海道本線","名古屋",5,["短期","髪色自由","週1日〜OK"]],
+[2063916,1,"山田税理士法人","週2～3日勤務OK！東京駅近く♪税理士法人での一般事務（2027年1～3月）","確定申告のこの時期だけの貴重なお仕事。資料のコピー、スキャニング、製本など。専門知識は不要です。","時給","1,400円","事務・オフィスワーク","東京都","千代田区","JR山手線","東京",3,["短期","未経験歓迎","交通費支給","土日祝休み"]],
+[2063430,1,"西東京市役所","【西東京市役所】選挙アシスタント募集！※短期","投票所での事務（投票用紙交付・場内整理・誘導案内）と投票所の設営をお願いします。","時給","1,280円 ～ 1,728円","イベント・スタッフ","東京都","西東京市","西武新宿線","田無",3,["短期","未経験歓迎","日払い"]],
+[2063800,1,"ロジフィルダー(株)","【11月OPEN】夕方から勤務☆週1日～・1日4時間～OK！髪色自由！送迎あり","新設倉庫内での荷引き・仕分け作業。食堂・コンビニ・シャワー完備。送迎時間も時給が発生します。","時給","1,250円 ～","軽作業・物流","兵庫県","尼崎市","阪神本線","尼崎センタープール前",7,["未経験歓迎","髪色自由","送迎あり","週1日〜OK","土日祝休み"]],
+[2063821,1,"グラフィック出版","英語が得意な方★週2日～★半日勤務もOK！美術専門書に係わる事務ワーク","海外とのメールのやり取りがあります。郵便物の開封、英文メールの読解とデータ入力、ファイリング。","時給","1,300円","事務・オフィスワーク","東京都","千代田区","東京メトロ半蔵門線","九段下",5,["未経験歓迎","交通費支給","土日祝休み"]],
+[2044350,1,"祇園 花街芸術資料館","祇園 花街芸術資料館で花街の文化を広めるお仕事","展示イベント運営やサービススタッフなど。あなたの得意を活かしつつ京都の奥深さを知ることができます。","時給","1,300円","イベント・スタッフ","京都府","京都市東山区","京阪本線","祇園四条",6,["未経験歓迎","週1日〜OK"]],
+[2063365,1,"アソシエ・キッズ(株)","地域の子どもたちのために。放課後子ども教室で指導員補助のお仕事","小学校敷地内で放課後や夏休みの小学生とふれあい、遊びの支援や安全を見守ります。教員志望の方にもおすすめ。","時給","1,290円 ～ 1,370円","学童・保育補助","東京都","目黒区","東急東横線","都立大学",10,["未経験歓迎","交通費支給","週1日〜OK"]],
+[2018727,0,"アソシエ・キッズ(株)","★学生仲間が活躍中！★児童館で保育補助のお仕事@乃木坂・西麻布","来館者の受付対応、遊びの見守り、イベント補助、清掃など。土日のみの勤務も可能です。","時給","1,290円 ～ 1,370円","学童・保育補助","東京都","港区","東京メトロ千代田線","乃木坂",7,["未経験歓迎","交通費支給","週1日〜OK"]],
+[2063680,1,"名古屋神宮郵便局","短期！約2か月【ゆうパックの仕分け・搬送】未経験歓迎！1日4時間","年末のお歳暮ゆうパック等の仕分け搬送。屋内でのお仕事です。留学生も活躍中、丁寧にお教えします。","時給","1,270円 ～ 1,300円","軽作業・物流","愛知県","名古屋市熱田区","JR東海道本線","熱田",12,["短期","未経験歓迎","交通費支給"]],
+[2060101,0,"カフェ・ミモザ 渋谷店","人気カフェのホールスタッフ！まかない無料・髪色自由","ドリンク提供・接客・レジ対応。シフトは学業優先で相談OK。制服貸与。","時給","1,250円 ～","飲食・フード","東京都","渋谷区","JR山手線","渋谷",3,["未経験歓迎","髪色自由","週1日〜OK","交通費支給"]],
+[2059988,0,"ライフマート","コンビニ夜勤スタッフ★深夜割増で高収入","レジ・品出し・清掃。先輩が丁寧に指導します。週1日からOK。","時給","1,450円 ～","コンビニ・スーパー","東京都","新宿区","東京メトロ丸ノ内線","新宿三丁目",1,["高時給","週1日〜OK","交通費支給"]],
+[2059500,0,"学習塾ステップ 横浜校","個別指導塾の講師★授業準備も時給対象","中高生への1対1指導。研修ありで未経験でも安心。","時給","1,800円 ～","教育・塾講師","神奈川県","横浜市西区","JR東海道本線","横浜",6,["高時給","未経験歓迎","週1日〜OK"]],
+[2058700,0,"酒場 ひなた 天神店","居酒屋キッチンスタッフ★まかないあり","調理補助・盛り付け。スキルが身につきます。","時給","1,180円 ～","飲食・フード","福岡県","福岡市中央区","福岡市地下鉄空港線","天神",2,["未経験歓迎","髪色自由"]],
+[2058300,0,"エヴァン・プランニング","ライブ・展示会の設営＆運営スタッフ★単発OK","会場設営と案内業務。友達と応募もOK。","日給","9,500円 ～","イベント・スタッフ","大阪府","大阪市北区","JR大阪環状線","大阪",4,["短期","日払い","未経験歓迎","高時給"]],
+[2057900,0,"ロジクイック 船橋倉庫","年末限定！ギフト仕分け★寮完備・日払い可","11月〜12月の短期。10:00〜19:00、週4日〜。","時給","1,350円 ～","軽作業・物流","千葉県","船橋市","JR総武線","船橋",15,["短期","日払い","送迎あり","高時給"]],
+[2057100,0,"フレッシュマート 大宮店","スーパーの品出し・レジ★扶養内OK","午前中心のシフト。主婦(夫)・シニアも活躍中。","時給","1,100円 ～","コンビニ・スーパー","埼玉県","さいたま市大宮区","JR京浜東北線","大宮",5,["未経験歓迎","交通費支給","週1日〜OK"]],
+[2056500,0,"グランドサクラ難波","ホテルフロントスタッフ★英語を活かせる","チェックイン対応。シフト制で週3日〜。","時給","1,500円 ～","販売・接客","大阪府","大阪市中央区","南海本線","難波",2,["高時給","交通費支給"]],
+[2055800,0,"札幌ベーカリー","パンの販売スタッフ★朝だけ勤務OK","焼きたてパンの販売とレジ。朝の時間を有効活用。","時給","1,150円 ～","販売・接客","北海道","札幌市北区","札幌市営地下鉄南北線","北24条",5,["未経験歓迎","髪色自由","土日祝休み"]]
+].map(a=>({no:a[0],isNew:a[1],co:a[2],t:a[3],d:a[4],kind:a[5],w:a[6],cat:a[7],pref:a[8],city:a[9],line:a[10],sta:a[11],walk:a[12],tag:a[13]}));
+const CC={"飲食・フード":"#b8815a","コンビニ・スーパー":"#5f86b5","販売・接客":"#a8708b","軽作業・物流":"#7b8a62","事務・オフィスワーク":"#6b7f99","教育・塾講師":"#8672a8","イベント・スタッフ":"#b87a62","ライター・クリエイティブ":"#4f9a96","学童・保育補助":"#c09a4f"};
+const LINES=[...new Set(D.map(j=>j.line))];
+const OPT={pref:["エリアから探す",REG],line:["路線・駅選択",{"路線":LINES}],cat:["職種選択",{"職種":Object.keys(C)}],tag:["こだわり選択",{"こだわり":TAGS}]};
+const S={pref:new Set(),line:new Set(),cat:new Set(),tag:new Set()},K=new Set(),H=[];
+let view="list",page=1,applied={kw:""};
+const $=i=>document.getElementById(i),PER=10;
+function lab(){document.querySelectorAll(".pick").forEach(b=>{const n=S[b.dataset.k].size;b.textContent=n?n+"件選択中":"選択する";b.classList.toggle("has",!!n)})}
+document.querySelectorAll(".pick").forEach(b=>b.onclick=()=>picker(b.dataset.k));
+function picker(k){
+ const[t,g]=OPT[k];
+ $("sh").innerHTML=`<div class="t"><span>${t}</span><button id="x">×</button></div><div class="bd">${Object.entries(g).map(([h,a])=>`<h4>${h}</h4>${a.map(v=>`<label class="ck"><input type="checkbox" value="${v}" ${S[k].has(v)?"checked":""}><span>${v}</span></label>`).join("")}`).join("")}</div><div class="ft"><button class="btn fill" id="ok">選択完了</button></div>`;
+ $("ov").classList.add("show");$("x").onclick=close;
+ $("ok").onclick=()=>{S[k]=new Set([...document.querySelectorAll(".bd input:checked")].map(i=>i.value));close();lab();page=1;render()};
+}
+function close(){$("ov").classList.remove("show")}
+$("ov").onclick=e=>{if(e.target===$("ov"))close()};
+function jobDetail(no){
+ const j=D.find(x=>x.no===no);H.unshift(j.no);if(H.length>20)H.pop();
+ $("sh").innerHTML=`<div class="t"><span>求人番号：${j.no}</span><button id="x">×</button></div><div class="bd"><div class="co" style="color:var(--mute)">${j.co}</div><h3>${j.t}</h3><p>${j.d}</p><dl class="tb"><dt>${j.kind}</dt><dd class="wage">${j.w}</dd><dt>職種</dt><dd>${j.cat}</dd><dt>勤務地</dt><dd>${j.pref} ${j.city}<br>【${j.line}】${j.sta} 徒歩 ${j.walk} 分</dd></dl><div class="tags">${j.tag.map(t=>`<span>${t}</span>`).join("")}</div></div><div class="ft"><button class="btn fill" id="ap">この求人に応募する</button></div>`;
+ $("ov").classList.add("show");$("x").onclick=close;
+ $("ap").onclick=()=>{close();toast("応募を受け付けました（デモのため実際には送信されません）")};
+}
+function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",2600)}
+function filt(){
+ const kw=applied.kw.toLowerCase().split(/\s+/).filter(Boolean);
+ let r=D.filter(j=>(!S.pref.size||S.pref.has(j.pref))&&(!S.line.size||S.line.has(j.line))&&(!S.cat.size||S.cat.has(j.cat))&&[...S.tag].every(t=>j.tag.includes(t))&&kw.every(w=>(j.t+j.co+j.d+j.cat+j.city+j.sta+j.pref).toLowerCase().includes(w)));
+ if(view==="keep")r=r.filter(j=>K.has(j.no));
+ if(view==="hist")r=H.map(n=>D.find(j=>j.no===n)).filter(j=>r.includes(j));
+ return r;
+}
+const GRP=[["三洋進学スクール","「入学試験」の試験監督です。","◆試験監督業務の経験者大歓迎！◆未経験でもマニュアルに沿って正確に動ける方なら勤務可能です。","この求人一覧を見る(201件)"],["トマス個別指導塾","＼高時給！週1日1授業～OK！完全1対1の個別指導／初めてでも安心な塾バイトです","◆授業時給1,600円～◆昇給あり！3ヶ月に1度の査定で頑張りを評価。全校舎駅から数分の好立地。","この求人一覧を見る(114件)"]];
+function render(){
+ const r=filt(),n=r.length,max=Math.max(1,Math.ceil(n/PER));if(page>max)page=max;
+ const s=(page-1)*PER,items=r.slice(s,s+PER);
+ $("kc").textContent=K.size;
+ document.querySelectorAll("nav [data-v]").forEach(b=>b.classList.toggle("on",b.dataset.v===view));
+ $("rc").innerHTML=`${{list:"検索結果",keep:"キープ中",hist:"最近見た"}[view]}<b>${n.toLocaleString()}</b>件${n?`（${s+1}〜${s+items.length}件を表示）`:""}`;
+ const show=view==="list"&&page===1&&!S.pref.size&&!S.line.size&&!S.cat.size&&!S.tag.size&&!applied.kw;
+ $("list").innerHTML=(show?GRP.map(g=>`<div class="grp"><div class="co">${g[0]}</div><h3>${g[1]}</h3><p>${g[2]}</p><button class="btn fill" onclick="toast('サンプルのため一覧は準備中です')">${g[3]}</button></div>`).join(""):"")+
+ (items.length?items.map(j=>`<div class="job"><div class="co">${j.isNew?'<span class="new">NEW</span>':""}${j.co}</div><h3>${j.t}</h3><div class="jb"><div><div class="img" style="background-color:${CC[j.cat]}">${j.cat}</div><div class="no">求人番号：${j.no}</div></div><div><p class="desc">${j.d}</p><dl class="tb"><dt>${j.kind}</dt><dd class="wage">${j.w}</dd><dt>職種</dt><dd>${j.cat}</dd><dt>勤務地</dt><dd>${j.pref} ${j.city}<br>【${j.line}】${j.sta} 徒歩 ${j.walk} 分</dd></dl><div class="tags">${j.tag.map(t=>`<span>${t}</span>`).join("")}</div></div></div><div class="act"><button class="btn" data-k="${j.no}">${K.has(j.no)?"キープ済み":"キープする"}</button><button class="btn fill" data-d="${j.no}">詳細を見る</button></div></div>`).join(""):`<div class="empty">条件に合う求人が見つかりませんでした。</div>`);
+ let p="";if(max>1){for(let i=1;i<=max;i++)p+=`<button class="${i===page?"on":""}" data-p="${i}">${i}</button>`}
+ $("pg").innerHTML=p;
+}
+$("list").onclick=e=>{const k=e.target.closest("[data-k]"),d=e.target.closest("[data-d]");
+ if(k){const n=+k.dataset.k;K.has(n)?K.delete(n):K.add(n);render()}else if(d)jobDetail(+d.dataset.d)};
+$("pg").onclick=e=>{const b=e.target.closest("[data-p]");if(b){page=+b.dataset.p;render();scrollTo({top:0})}};
+document.querySelectorAll("nav [data-v]").forEach(b=>b.onclick=()=>{view=b.dataset.v;page=1;render()});
+$("go").onclick=()=>{applied.kw=$("kw").value.trim();page=1;view="list";render()};
+$("kw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
+$("reg").onclick=()=>toast("デモのためログインは未実装です");
+$("home").onclick=()=>{Object.values(S).forEach(s=>s.clear());$("kw").value="";applied.kw="";view="list";page=1;lab();render()};
+lab();render();
+</script>
+</body>
+</html>
