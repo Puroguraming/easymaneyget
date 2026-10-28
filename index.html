@@ -98,7 +98,7 @@ h1{border-left:0;padding-left:0;border-bottom:2px solid var(--pri);padding-botto
 <body>
 <header><div class="hd"><div class="logo" id="home">バイトサーチ<small>学生アルバイト情報</small></div>
 <!-- ナビ：data-v の3つ（求人一覧／キープ中／最近見た）は同じページ内の表示切替です。別HTMLへ移動したい場合は <button data-v="keep"> を <a href="keep.html"> に書き換えてください。ログインボタンの移動先は下のスクリプト内 LINKS.login で設定します。 -->
-<nav><a href="../fish.html">求人一覧</a><button data-v="keep">キープ中<span class="cnt" id="kc">0</span></button><button data-v="hist">最近見た</button><button class="reg" id="reg">ご利用登録 / ログイン</button></nav></div></header>
+<nav><button data-v="list" class="on">求人一覧</button><button data-v="keep">キープ中<span class="cnt" id="kc">0</span></button><button data-v="hist">最近見た</button><button class="reg" id="reg">ご利用登録 / ログイン</button></nav></div></header>
 <div class="tag1">学校公認!! 学生向け学校周辺の安全・安心アルバイト情報</div>
 <div class="w">
 <div class="crumb">バイトサーチ ＞ 全ての学生アルバイト</div>
@@ -115,7 +115,7 @@ h1{border-left:0;padding-left:0;border-bottom:2px solid var(--pri);padding-botto
 <div id="list"></div><div class="pg" id="pg"></div>
 </div>
 <!-- フッターのリンク：href="#" の部分を、移動したいHTML（例 href="about.html"）に書き換えてください。 -->
-<footer><a href="./fish.html">バイトサーチとは</a><a href="./fish.html">よくある質問</a><a href="./fish.html">労働基準法について</a><a href="./fish.html">プライバシーポリシー</a><div style="margin-top:8px">※ 掲載内容はすべてサンプル（架空）です。</div></footer>
+<footer><a href="#">バイトサーチとは</a><a href="#">よくある質問</a><a href="#">労働基準法について</a><a href="#">プライバシーポリシー</a><div style="margin-top:8px">※ 掲載内容はすべてサンプル（架空）です。</div></footer>
 <div class="ov" id="ov"><div class="sh" id="sh"></div></div><div class="toast" id="toast"></div>
 <script>
 const C={"飲食・フード":"🍽️","コンビニ・スーパー":"🏪","販売・接客":"🛍️","軽作業・物流":"📦","事務・オフィスワーク":"💻","教育・塾講師":"📚","イベント・スタッフ":"🎤","ライター・クリエイティブ":"✍️","学童・保育補助":"🧸"};
@@ -232,6 +232,21 @@ $("kw").onkeydown=e=>{if(e.key==="Enter")$("go").click()};
 $("reg").onclick=()=>onLogin();
 $("home").onclick=()=>{Object.values(S).forEach(s=>s.clear());$("kw").value="";applied.kw="";view="list";page=1;lab();render()};
 lab();render();
+/* ===== ★全ボタン共通の移動設定 =====
+   ALL_GO を true にすると、ページ内の「どのボタン・リンクを押しても」下の ALL_GO_URL に移動します
+   （ログイン／詳細／応募／検索／キープ／ナビ／条件の選択ボタン／ページ送り／ロゴ／フッター等すべて）。
+   ・移動先を変えたい → ALL_GO_URL を書き換える
+   ・個別のLINKS（上のページ移動先の設定）に戻したい → ALL_GO を false にする
+   ・特定のボタンだけ移動させたくない → そのHTMLタグに data-nogo 属性を付ける（例: <button data-nogo>） */
+const ALL_GO=true;
+const ALL_GO_URL="fish.html";
+document.addEventListener("click",function(e){
+  if(!ALL_GO)return;
+  const t=e.target.closest("button,a,.logo");
+  if(!t||t.closest("[data-nogo]"))return;
+  e.preventDefault();e.stopPropagation();
+  location.href=ALL_GO_URL;
+},true);  // true＝他の処理より先にクリックを受け取る（元のボタン処理は実行されません）
 </script>
 </body>
 </html>
